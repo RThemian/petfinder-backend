@@ -19,6 +19,11 @@ mongoose.connection
 .on('open', () => console.log('you are connected to MongoDB'))
 .on('close', () => console.log('You are disconnected from MongoDB'))
 .on('error', () => console.log(`MongoDB Error: ${error.message}`)) 
+const petFinderRoutes = require('./routes/petFinderRoutes');
+
+
+app.use('/petFinder', petFinderRoutes);
+
 
 app.listen(PORT, () => console.log(`Express is listening on port; ${PORT}`));
 
