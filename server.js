@@ -2,9 +2,12 @@
 
 const mongoose = require('mongoose');
 const express = require('express');
+const app = express();
+app.use(express.json());
+const petFinderRoutes = require('./routes/petFinderRoutes');
 
 // Aplication object
-const app = express();
+
 
 // Aplication settings
 require('dotenv').config();
@@ -19,7 +22,7 @@ mongoose.connection
 .on('open', () => console.log('you are connected to MongoDB'))
 .on('close', () => console.log('You are disconnected from MongoDB'))
 .on('error', () => console.log(`MongoDB Error: ${error.message}`)) 
-const petFinderRoutes = require('./routes/petFinderRoutes');
+
 
 
 app.use('/petFinder', petFinderRoutes);
