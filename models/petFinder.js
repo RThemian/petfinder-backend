@@ -24,4 +24,4 @@ const PetSchema = new mongoose.Schema({
     },
    }});
 
-module.exports = mongoose.model('petFinder', PetSchema);
+module.exports = mongoose.model('PetFinder', PetSchema);
