@@ -14,6 +14,8 @@ Install the dependencies:
 
 ```bash   
 npm install
+npm install firebase-admin
+npm install cors
 ```
 
 Set the enviroment variables:
