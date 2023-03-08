@@ -21,7 +21,7 @@ mongoose.connect(DATABASE_URL);
 mongoose.connection
 .on('open', () => console.log('you are connected to MongoDB'))
 .on('close', () => console.log('You are disconnected from MongoDB'))
-.on('error', () => console.log(`MongoDB Error: ${error.message}`)) 
+.on('error', (error) => console.log(`MongoDB Error: ${error.message}`)) 
 
 
 
