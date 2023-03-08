@@ -20,8 +20,10 @@ const PetSchema = new mongoose.Schema({
         city: String,
         state: String,
         postcode: String,
-        country: String
+        country: String,
+        createdBy: String // Google firebase user Id
     },
-   }});
+   }},
+   { timestamps: true });
 
 module.exports = mongoose.model('PetFinder', PetSchema);

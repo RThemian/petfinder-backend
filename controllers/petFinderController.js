@@ -1,22 +1,24 @@
 const PetFinder = require ('../models/petFinder');
 
-const getPet = async (req, res) => {
+const getPets = async (req, res) => {
     try {
-        res.status(200).json(await PetFinder.find({}));
+        res.status(200).json(await PetFinder.find({ createdBy: req.user.uid }));
     } catch (error) {
         res.status(400).json({ message: 'Something went wrong'});
     };
 };
 
-const createPet = async (req, res) => {
+const createPets = async (req, res) => {
     try {
+
+      req.body.createdBy = req.user.uid;
         res.status(201).json(await PetFinder.create(req.body));
     } catch (error) {
         res.status(400).json({ message: 'Something went wrong'});
     };
 };
 
-const deletePet = async (req, res) => {
+const deletePets = async (req, res) => {
     try {
       res.status(200).json(await PetFinder.findByIdAndDelete(req.params.id));
     } catch (error) {
@@ -24,7 +26,7 @@ const deletePet = async (req, res) => {
     };
   };
 
-const showPet = async (req, res) => {
+const showPets = async (req, res) => {
     try {
       res.status(200).json(
         await PetFinder.findByIdAndUpdate(req.params.id, req.body, { new: true })
@@ -34,7 +36,7 @@ const showPet = async (req, res) => {
     };
   };
 
-  const updatePet = async (req, res) => {
+  const updatePets = async (req, res) => {
     try {
       res.status(200).json(
         await PetFinder.findByIdAndUpdate(req.params.id, req.body, { new: true })
@@ -45,9 +47,9 @@ const showPet = async (req, res) => {
   };
 
 module.exports = {
-    getPet,
-    createPet,
-    deletePet,
-    showPet,
-    updatePet
+    getPets,
+    createPets,
+    deletePets,
+    showPets,
+    updatePets
 };

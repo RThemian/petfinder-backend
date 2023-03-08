@@ -1,11 +1,10 @@
 const express = require('express');
-const request = require('request');
 const router = express.Router();
 const PetFinder = require('../models/petFinder');
 
 router.get('/', async (req, res) => {
     try {
-        res.status(200).json(await PetFinder.find({}));
+        res.status(200).json(await PetFinder.find({ createdBy: req.user.uid }));
     } catch (error) {
         res.status(400).json({ message: 'Something went wrong'});
     };
@@ -14,6 +13,7 @@ router.get('/', async (req, res) => {
 // Create
 router.post('/', async (req, res) => {
     try {
+      req.body.createdBy = req.user.uid;
       console.log(req.body)
         res.status(201).json(await PetFinder.create(req.body));
     } catch (error) {
