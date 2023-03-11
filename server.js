@@ -53,9 +53,9 @@ mongoose.connection
 app.use(async function(req, res, next) {
     // capture the token
     const token = req.get('Authorization');
-    console.log("token", token)
     if(token) {
       const user = await getAuth().verifyIdToken(token.replace('Bearer ', ''));
+      console.log("token", token)
       // adding a logged in user to the request object
       req.user = user;
     } else {
