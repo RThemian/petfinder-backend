@@ -2,7 +2,10 @@ const PetFinder = require ('../models/petFinder');
 
 const getPets = async (req, res) => {
     try {
-        res.status(200).json(await PetFinder.find({ createdBy: req.user.uid }));
+      console.log("HEY getPets was called", req.user.uid);
+        res.status(200).json(await PetFinder.find());
+        
+
     } catch (error) {
         res.status(400).json({ message: 'Something went wrong'});
     };
