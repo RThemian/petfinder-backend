@@ -1,10 +1,11 @@
 const mongoose = require('mongoose');
 
 const PetSchema = new mongoose.Schema({
+    useremail: String, // Google firebase user email
     name: String,
 	photo: String,
     age: String,
-    description:String,
+    description: String,
     breed: String,
     gender: String,
     status: String, 
@@ -17,7 +18,7 @@ const PetSchema = new mongoose.Schema({
         state: String,
         postcode: String,
         country: String,
-        createdBy: String // Google firebase user Id
+        
     },
    }},
    { timestamps: true });

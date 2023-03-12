@@ -1,10 +1,12 @@
 // Dependencies
+const morgan = require('morgan'); // logging
 const cors = require('cors');
 const mongoose = require('mongoose');
 const express = require('express');
 const app = express();
 app.use(express.json());
 app.use(cors());
+app.use(morgan('dev'));
 const petFinderRoutes = require('./routes/petFinderRoutes');
 
 const admin = require('firebase-admin');
@@ -71,9 +73,9 @@ app.use(async function(req, res, next) {
     next();
   }
 
-app.use('/petFinder', isAuthenticated, petFinderRoutes);
+app.use('/petfinder', isAuthenticated, petFinderRoutes);
 
 
-app.listen(PORT, () => console.log(`Express is listening on port; ${PORT}`));
+app.listen(PORT, () => console.log(`Express is listening on port: ${PORT}`));
 
 
