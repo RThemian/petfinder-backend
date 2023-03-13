@@ -18,6 +18,7 @@ router.post('/', async (req, res) => {
       req.body.createdBy = req.user.uid;
       console.log("EMAIL USER", req.user.email)
       req.body.useremail= req.user.email;
+
       console.log(req.body)
         res.status(201).json(await PetFinder.create(req.body));
     } catch (error) {
@@ -29,6 +30,7 @@ router.post('/', async (req, res) => {
 
 //delete
 router.delete('/:id', async (req, res) => {
+  console.log("DELETE", req.params.id)
     try {
       res.status(200).json(await PetFinder.findByIdAndDelete(req.params.id));
     } catch (error) {
