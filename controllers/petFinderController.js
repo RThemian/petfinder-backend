@@ -1,24 +1,28 @@
 const PetFinder = require ('../models/petFinder');
 
 const getPets = async (req, res) => {
-    try {
-      console.log("HEY getPets was called", req.user.uid);
-        res.status(200).json(await PetFinder.find());
-        
-
-    } catch (error) {
-        res.status(400).json({ message: 'Something went wrong'});
-    };
+  try {
+    //filter out by useremail match
+    res.status(200).json(await PetFinder.find({ useremail: req.user.email }));
+     // res.status(200).json(await PetFinder.find({ }));
+  } catch (error) {
+      res.status(400).json({ message: 'Something went wrong'});
+  };
 };
 
 const createPets = async (req, res) => {
-    try {
+  try {
+    req.body.createdBy = req.user.uid;
+    console.log("EMAIL USER", req.user.email)
+    req.body.useremail= req.user.email;
 
-      req.body.createdBy = req.user.uid;
-        res.status(201).json(await PetFinder.create(req.body));
-    } catch (error) {
-        res.status(400).json({ message: 'Something went wrong'});
-    };
+    console.log(req.body)
+      res.status(201).json(await PetFinder.create(req.body));
+  } catch (error) {
+    console.log(error)
+     res.status(400).json({ message: 'Something went wrong'}); 
+     
+  };
 };
 
 const deletePets = async (req, res) => {
