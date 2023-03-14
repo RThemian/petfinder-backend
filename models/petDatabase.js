@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 
-const PetSchema = new mongoose.Schema({
-    useremail: String, // Google firebase user email
+const PetDataSchema = new mongoose.Schema({
     id: String,
     name: String,
 	photo: String,
@@ -27,6 +26,6 @@ const PetSchema = new mongoose.Schema({
         
     },
    }},
-   { timestamps: true, collection: 'petfinders' });
+   { timestamps: true, collection: 'petDatabase' });
 
-module.exports = mongoose.model('PetFinder', PetSchema);
+module.exports = mongoose.model('PetDatabase', PetDataSchema);

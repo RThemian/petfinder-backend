@@ -3,10 +3,18 @@ const router = express.Router();
 const PetFinder = require('../models/petFinder');
 const petFinderController = require('../controllers/petFinderController');
 
+// Get all favorite pets linked to useremail
 router.get('/', petFinderController.getPets);
 
-// Create
+// Create favorite pet linked to useremail
 router.post('/', petFinderController.createPets);
+
+// get all animal data from petDatabase collection
+router.get('/get_animal_data', petFinderController.getAnimalData);
+
+
+// Save animal data from petfinder API to petDatabase collection
+router.post('/save_animal_data', petFinderController.saveAnimalData);
 
 
 //delete

@@ -1,4 +1,5 @@
 const PetFinder = require ('../models/petFinder');
+const PetDatabase = require ('../models/petDatabase');
 
 const getPets = async (req, res) => {
   try {
@@ -26,12 +27,45 @@ const createPets = async (req, res) => {
 };
 
 const deletePets = async (req, res) => {
-    try {
-      res.status(200).json(await PetFinder.findByIdAndDelete(req.params.id));
-    } catch (error) {
-      res.status(400).json({ message: "something went wrong" });
-    };
+  console.log("DELETE", req.params.id)
+  try {
+    res.status(200).json(await PetFinder.findByIdAndDelete(req.params.id));
+  } catch (error) {
+    res.status(400).json({ message: "something went wrong" });
+  }
   };
+
+// Save animal data to petDatabase collection
+const saveAnimalData = async (req, res) => {
+  try {
+    console.log("saveAnimalData on Backend called", req.body);
+    const animalDataArray = req.body;
+
+    // Iterate through the animalDataArray and save each animal object
+    const savedAnimalData = await Promise.all(
+      animalDataArray.map(async (animalData) => {
+        const newAnimalData = new PetDatabase(animalData);
+        return await newAnimalData.save();
+      })
+    );
+
+    res.status(201).json(savedAnimalData);
+  } catch (error) {
+    res.status(400).json({ message: "Error saving animal data" });
+  }
+};
+
+// Get all animal data from petDatabase collection
+const getAnimalData = async (req, res) => {
+  try {
+    const animalData = await PetDatabase.find({}).sort({ published_at: 1 });
+    res.status(200).json(animalData);
+  } catch (error) {
+    res.status(400).json({ message: "Error getting animal data" });
+  }
+};
+
+
 
 const showPets = async (req, res) => {
     try {
@@ -58,5 +92,7 @@ module.exports = {
     createPets,
     deletePets,
     showPets,
-    updatePets
+    updatePets,
+    saveAnimalData,
+    getAnimalData
 };
