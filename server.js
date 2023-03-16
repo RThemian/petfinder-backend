@@ -30,7 +30,7 @@ credential: admin.credential.cert({
     "type": "service_account",
     "project_id": "pet-purpose-app",
     "private_key_id": GOOGLE_PRIVATE_KEY_ID,
-    "private_key": GOOGLE_PRIVATE_KEY.replace(/\\n/g, '\n'),
+    "private_key": GOOGLE_PRIVATE_KEY.replace(/\n/g, '\n'),
     "client_email": "firebase-adminsdk-qkszg@pet-purpose-app.iam.gserviceaccount.com",
     "client_id": GOOGLE_CLIENT_ID,
     "auth_uri": "https://accounts.google.com/o/oauth2/auth",
