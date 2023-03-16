@@ -1,12 +1,12 @@
 # Backend-node-express
- The project builds Restful APIs using Node.js, Express and Mongoose...
+ The project builds Restful APIs using Node.js, Express and Mongoose, creating a Data-base from the Api PetFinders.
 
 ## Manual Installation
 
 Clone the repo:
 
 ```bash
-git clone https://git.generalassemb.ly/tomaspaul/backend-pet-finder-app.git
+git clone https://github.com/alychavez12/petfinder-backend.git
 cd backend-pet-finder-app
 ```
 
@@ -47,6 +47,18 @@ DATABASE_URL= mongodb://127.0.0.1:27017/database_name
 PORT = # default 5001
 
 # URL frontend
+
+```
+https://github.com/alychavez12/frontend-petfinder-app.git
+
+```
+
+## Deployed Heroku
+
+```bash
+https://pet-purpose-app.herokuapp.com/
+
+https://git.heroku.com/pet-purpose-app.git
 ```
 
 ## Project Structure
