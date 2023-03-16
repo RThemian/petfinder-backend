@@ -48,7 +48,6 @@ PORT = # default 5001
 
 # URL frontend
 
-```
 https://github.com/alychavez12/frontend-petfinder-app.git
 
 ```
