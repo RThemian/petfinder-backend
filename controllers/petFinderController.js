@@ -33,8 +33,7 @@ const deletePets = async (req, res) => {
     // try both PetFinder and PetDatabase to findByIdAndDelete
     res.status(200).json(await PetFinder.findByIdAndDelete(req.params.id));
     console.log("DELETE in PetFinder", req.params.id)
-    res.status(200).json(await PetDatabase.findByIdAndDelete(req.params.id));
-    console.log("DELETE in PetDatabase", req.params.id)
+    
   } catch (error) {
     res.status(400).json({ message: "something went wrong" });
   }

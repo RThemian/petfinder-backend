@@ -48,21 +48,24 @@ mongoose.connect(DATABASE_URL);
 
 async function createIndex() {
   try {
-    const uri = DATABASE_URL; // Use your existing MongoDB connection string
+    const uri = DATABASE_URL;
     const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
     await client.connect();
-    const db = client.db("pet-finder-lab-app"); // Replace "myDatabase" with your database name
-    const myCollection = db.collection("petDatabase"); // Replace "myCollection" with your collection name
+    const db = client.db("pet-finder-lab-app");
     
-    // Create a unique index on the `id` and `name` fields
-    await myCollection.createIndex({ id: 1, name: 1 }, { unique: true });
+    const petDatabase = db.collection("petDatabase");
+    await petDatabase.createIndex({ id: 1, name: 1 }, { unique: true });
+
+    const petfinders = db.collection("petfinders");
+    await petfinders.createIndex({ id: 1, name: 1, useremail: 1 }, { unique: true });
     
     console.log("Unique index created successfully");
   } catch (error) {
     console.error("Error creating index:", error);
   }
 }
+
 
 
 
