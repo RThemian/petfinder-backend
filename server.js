@@ -7,7 +7,9 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 app.use(morgan('dev'));
+const { MongoClient } = require("mongodb");
 const petFinderRoutes = require('./routes/petFinderRoutes');
+
 
 const admin = require('firebase-admin');
 const { getAuth } = require('firebase-admin/auth');
@@ -44,9 +46,35 @@ credential: admin.credential.cert({
 // Database connection
 mongoose.connect(DATABASE_URL);
 
+async function createIndex() {
+  try {
+    const uri = DATABASE_URL;
+    const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+
+    await client.connect();
+    const db = client.db("pet-finder-lab-app");
+    
+    const petDatabase = db.collection("petDatabase");
+    await petDatabase.createIndex({ id: 1, name: 1 }, { unique: true });
+
+    const petfinders = db.collection("petfinders");
+    await petfinders.createIndex({ id: 1, name: 1, useremail: 1 }, { unique: true });
+    
+    console.log("Unique index created successfully");
+  } catch (error) {
+    console.error("Error creating index:", error);
+  }
+}
+
+
+
+
 //Mongoose conection events
 mongoose.connection
-.on('open', () => console.log('you are connected to MongoDB'))
+.on('open', () => {
+  console.log('you are connected to MongoDB')
+  createIndex();
+})
 .on('close', () => console.log('You are disconnected from MongoDB'))
 .on('error', (error) => console.log(`MongoDB Error: ${error.message}`)) 
 
