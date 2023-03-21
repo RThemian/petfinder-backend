@@ -43,9 +43,9 @@ const deletePets = async (req, res) => {
 const saveAnimalData = async (req, res) => {
   try {
     // one to squillions relationship with useremail
-    req.body.createdBy = req.user.uid;
-    console.log("EMAIL USER", req.user.email)
-    req.body.useremail= req.user.email;
+    // req.body.createdBy = req.user.uid;
+    // console.log("EMAIL USER", req.user.email)
+    // req.body.useremail= req.user.email;
 
     console.log("saveAnimalData on Backend called", req.body);
     const animalDataArray = req.body;
@@ -53,6 +53,10 @@ const saveAnimalData = async (req, res) => {
     // Iterate through the animalDataArray and save each animal object
     const savedAnimalData = await Promise.all(
       animalDataArray.map(async (animalData) => {
+        // add useremail to each animal object
+        animalData.useremail = req.user.email;
+
+
         const newAnimalData = new PetDatabase(animalData);
         return await newAnimalData.save();
       })
@@ -67,7 +71,9 @@ const saveAnimalData = async (req, res) => {
 // Get all animal data from petDatabase collection
 const getAnimalData = async (req, res) => {
   try {
-    const animalData = await PetDatabase.find({useremail: req.user.email}).sort({ published_at: 1 });
+    //const animalData = await PetDatabase.find({useremail: req.user.email}).sort({ published_at: 1 });
+    // sort published_at from newest to oldest
+    const animalData = await PetDatabase.find({useremail: req.user.email}).sort({ published_at: -1 });
     res.status(200).json(animalData);
   } catch (error) {
     res.status(400).json({ message: "Error getting animal data" });
