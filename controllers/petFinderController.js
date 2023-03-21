@@ -42,6 +42,11 @@ const deletePets = async (req, res) => {
 // Save animal data to petDatabase collection
 const saveAnimalData = async (req, res) => {
   try {
+    // one to squillions relationship with useremail
+    req.body.createdBy = req.user.uid;
+    console.log("EMAIL USER", req.user.email)
+    req.body.useremail= req.user.email;
+
     console.log("saveAnimalData on Backend called", req.body);
     const animalDataArray = req.body;
 
@@ -62,7 +67,7 @@ const saveAnimalData = async (req, res) => {
 // Get all animal data from petDatabase collection
 const getAnimalData = async (req, res) => {
   try {
-    const animalData = await PetDatabase.find({}).sort({ published_at: 1 });
+    const animalData = await PetDatabase.find({useremail: req.user.email}).sort({ published_at: 1 });
     res.status(200).json(animalData);
   } catch (error) {
     res.status(400).json({ message: "Error getting animal data" });

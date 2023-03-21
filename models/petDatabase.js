@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 
 const PetDataSchema = new mongoose.Schema({
+    useremail: String, // Google firebase user email
     id: String,
     name: String,
 	photo: String,
